@@ -1,5 +1,6 @@
 // const router = require("express").Router();
 const Workout = require("../models/workouts.js");
+const mongojs = require('mongojs')
 
 module.exports = (app) => {
 
@@ -15,7 +16,7 @@ module.exports = (app) => {
   });
 
   app.post("/api/workouts", (req, res) => {
-    Workout.create(body)
+    Workout.create(req.body)
       .then(dbWorkout => {
         res.json(dbWorkout);
       })
@@ -24,11 +25,14 @@ module.exports = (app) => {
       });
   });
 
-  app.put("/api/workouts/:id", function (req, res) {
-    Workout.updateOne(
-     {_id: req.params.id}, { $push: { exercises: req.body } })
-      .then(function (dbPost) {
-        res.json(dbPost);
+  app.put("/api/workouts/:id", (req, res) => {
+    Workout.findByIdAndUpdate(
+     {_id: req.params.id }, { $push: { exercises: req.body } }, {new: true})
+      .then(dbWorkout => {
+        res.json(dbWorkout);
+      })
+      .catch(err => {
+        res.status(400).json(err);
       });
   });
 

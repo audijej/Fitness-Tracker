@@ -12,7 +12,8 @@ const workoutSchema = new Schema({
             type: {
                 type: String,
                 trim: true,
-                required: "Enter workout type: resistance or cardio"
+                required: "Enter workout type: resistance or cardio",
+
             },
             name: {
                 type: String,
@@ -36,6 +37,10 @@ const workoutSchema = new Schema({
             },
         }]
 });
+
+workoutSchema.methods.totalDuration = function () {
+    this.totalDuration = `${this.exercises.forEach()}`
+}
 
 const Workout = mongoose.model("Workout", workoutSchema);
 

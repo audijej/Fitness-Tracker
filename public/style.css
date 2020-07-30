@@ -393,7 +393,7 @@ form > button {
 }
 
 .prev-workout .buttons {
-  display: flex;
+  display: inline-table;
   height: 75px;
   margin-top: 30px;
 }
