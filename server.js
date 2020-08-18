@@ -1,8 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const PORT = process.env.PORT || 9000;
+require("dotenv").config()
 
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 9000;
 
 const app = express();
 
@@ -11,10 +13,8 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
-  useNewUrlParser: true,
-  useFindAndModify: false
-});
+const mongo = process.env.MONGODB_URI
+mongoose.connect(mongo)
 
 // routes
 require("./routes/api-route.js")(app);
